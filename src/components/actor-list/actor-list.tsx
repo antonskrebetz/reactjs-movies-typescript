@@ -1,7 +1,20 @@
 import ActorCard from "../actor-card/actor-card";
 import './actor-list.scss';
 
-const ActorList = ({data}) => {
+type TDataResponse = {
+  id: number;
+  image: string;
+  profile_path: string;
+  name: string;
+  alt: string;
+  character: string;
+}
+
+type TProps = {
+  data: TDataResponse[];
+}
+
+const ActorList = ({data}: TProps): JSX.Element => {
   return (
     <div className="actors">
       {

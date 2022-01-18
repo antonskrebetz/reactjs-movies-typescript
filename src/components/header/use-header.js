@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeLanguage, changeSearchText } from '../../redux/appSlice';
-import { fetchMovieGenres } from '../../redux/appSlice';
 import i18n from "../../i18n/i18n";
 import { useNavigate } from "react-router-dom";
 
@@ -28,10 +27,6 @@ export const useHeader = () => {
       setSearchText('');
     }
   }
-
-  useEffect(() => {
-    dispatch(fetchMovieGenres({lang}));
-  }, [dispatch, lang])
 
   return {searchText, setSearchText, lang, handleChangeLang, hadleChangeInput, submitSearchForm};
 }

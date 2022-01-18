@@ -3,7 +3,15 @@ import {img_300, notfound_300} from '../../services/media-service';
 import { Link } from 'react-router-dom';
 import styles from './styles';
 
-const ActorCard = ({id, image, name, character, alt}) => {
+type TProps = {
+  id: number;
+  image: string;
+  name: string;
+  character: string;
+  alt: string;
+}
+
+const ActorCard = ({id, image, name, character, alt}: TProps): JSX.Element => {
 
   const clickOnActorCard = () => {
     window.scroll(0, 0);

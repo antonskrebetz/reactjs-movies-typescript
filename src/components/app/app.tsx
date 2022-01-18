@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useApp } from './use-app';
 import { Container } from '@mui/material';
 import Header from '../header/header';
 import PopularMovies from '../pages/popular-movies/popular-movies';
@@ -11,6 +12,8 @@ import Page404 from "../pages/404/404";
 import './app.scss';
 
 const App = () => {
+  useApp();
+  
   return (
     <>
       <Router>

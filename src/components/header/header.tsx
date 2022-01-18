@@ -7,7 +7,7 @@ import { useHeader } from './use-header';
 import { useTranslation } from 'react-i18next';
 import './header.scss';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const {searchText, lang, handleChangeLang, hadleChangeInput, submitSearchForm} = useHeader();
   const { t } = useTranslation();
 

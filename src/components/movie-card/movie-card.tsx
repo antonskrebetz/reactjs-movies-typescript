@@ -2,9 +2,18 @@ import { Card, CardContent, CardMedia, Typography, CardActionArea, Chip } from "
 import { img_300, notfound_300 } from "../../services/media-service";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import styles from './styles';
+import {CardStyles, ChipStyles} from './styles';
 
-export default function MovieCard({id, vote, title, alt, poster, genres}) {
+type TProps = {
+  id: number;
+  vote: number;
+  title: string;
+  alt: string;
+  poster: string;
+  genres: string[];
+}
+
+const MovieCard = ({id, vote, title, alt, poster, genres}: TProps): JSX.Element => {
 
   const movieRate = useMemo(() => {
     if (vote >= 7) return 'success';
@@ -17,11 +26,11 @@ export default function MovieCard({id, vote, title, alt, poster, genres}) {
   }
 
   return (
-    <Card sx={styles.card} key={id} component={Link} to={`/movie/${id}`} onClick={clickOnMovieCard}>
+    <Card sx={CardStyles} key={id} component={Link} to={`/movie/${id}`} onClick={clickOnMovieCard}>
       <Chip 
         label={vote.toFixed(1)} 
         color={movieRate}
-        sx={styles.chip}
+        sx={ChipStyles}
       />
       <CardActionArea>
         <CardMedia
@@ -35,10 +44,12 @@ export default function MovieCard({id, vote, title, alt, poster, genres}) {
             {title}
           </Typography>
           <Typography variant="body2" color="#777">
-            {genres.join(' ')}
+            { genres.join(' ') }
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
   );
 }
+
+export default MovieCard;
