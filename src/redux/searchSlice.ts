@@ -6,24 +6,25 @@ type Opt<T> = T | null;
 type TAsyncThunk = {
   lang: string;
   page: string;
+  query: string;
 }
 
-export const fetchPopularMovies = createAsyncThunk(
-  'popular/fetchPopularMovies',
-  ({lang, page}: TAsyncThunk) => {
+export const fetchSearchMovies = createAsyncThunk(
+  'search/fetchSearchMovies',
+  ({lang, query, page}: TAsyncThunk) => {
     const {request} = httpService();
-    return request(`${_apiBase}movie/popular?${_apiKey}&language=${lang}&page=${page}`);
+    return request(`${_apiBase}search/movie?${_apiKey}&language=${lang}&query=${query}&page=${page}&include_adult=false`);
   }
 );
 
 type TSliceState ={
-  popularMovies: Opt<TPopularMoviesItem[]>;
+  searchMovies: Opt<TSearchMoviesItem[]>;
   totalPages: number;
   status: Opt<string>;
   error: Opt<boolean>;
 }
 
-type TPopularMoviesItem = {
+type TSearchMoviesItem = {
   poster_path: string;
   genre_ids: number[];
   id: number;
@@ -32,37 +33,37 @@ type TPopularMoviesItem = {
 }
 
 type TFulfilledAction = {
-  results: TPopularMoviesItem[];
+  results: TSearchMoviesItem[];
   total_pages: number;
 }
 
 const initialState: TSliceState = {
-  popularMovies: null,
+  searchMovies: null,
   totalPages: 10,
   status: null,
   error: null
 };
 
-const popularSlice = createSlice({
-  name: 'popular',
+const searchSlice = createSlice({
+  name: 'search',
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchPopularMovies.pending.type]: (state) => {
+    [fetchSearchMovies.pending.type]: (state) => {
       state.status = 'loading';
       state.error = null;
     },
-    [fetchPopularMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
+    [fetchSearchMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
       state.status = 'resolved';
-      state.popularMovies = action.payload.results;
+      state.searchMovies = action.payload.results;
       state.totalPages = action.payload.total_pages;
     },
-    [fetchPopularMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
+    [fetchSearchMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
       state.status = 'rejected';
       state.error = action.payload;
     },
   }
 });
 
-const {reducer} = popularSlice;
+const {reducer} = searchSlice;
 export default reducer;

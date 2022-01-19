@@ -8,22 +8,22 @@ type TAsyncThunk = {
   page: string;
 }
 
-export const fetchPopularMovies = createAsyncThunk(
-  'popular/fetchPopularMovies',
+export const fetchUpcomingMovies = createAsyncThunk(
+  'upcoming/fetchUpcomingMovies',
   ({lang, page}: TAsyncThunk) => {
-    const {request} = httpService();
-    return request(`${_apiBase}movie/popular?${_apiKey}&language=${lang}&page=${page}`);
+    const {request} = httpService()
+    return request(`${_apiBase}movie/upcoming?${_apiKey}&language=${lang}&page=${page}`);
   }
 );
 
 type TSliceState ={
-  popularMovies: Opt<TPopularMoviesItem[]>;
+  upcomingMovies: Opt<TUpcomMoviesItem[]>;
   totalPages: number;
   status: Opt<string>;
   error: Opt<boolean>;
 }
 
-type TPopularMoviesItem = {
+type TUpcomMoviesItem = {
   poster_path: string;
   genre_ids: number[];
   id: number;
@@ -32,37 +32,37 @@ type TPopularMoviesItem = {
 }
 
 type TFulfilledAction = {
-  results: TPopularMoviesItem[];
+  results: TUpcomMoviesItem[];
   total_pages: number;
 }
 
 const initialState: TSliceState = {
-  popularMovies: null,
+  upcomingMovies: null,
   totalPages: 10,
   status: null,
   error: null
 };
 
-const popularSlice = createSlice({
-  name: 'popular',
+const upcomingSlice = createSlice({
+  name: 'upcoming',
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchPopularMovies.pending.type]: (state) => {
+    [fetchUpcomingMovies.pending.type]: (state) => {
       state.status = 'loading';
       state.error = null;
     },
-    [fetchPopularMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
+    [fetchUpcomingMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
       state.status = 'resolved';
-      state.popularMovies = action.payload.results;
+      state.upcomingMovies = action.payload.results;
       state.totalPages = action.payload.total_pages;
     },
-    [fetchPopularMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
+    [fetchUpcomingMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
       state.status = 'rejected';
       state.error = action.payload;
     },
   }
 });
 
-const {reducer} = popularSlice;
+const {reducer} = upcomingSlice;
 export default reducer;

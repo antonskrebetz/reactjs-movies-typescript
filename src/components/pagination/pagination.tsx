@@ -4,7 +4,13 @@ import { Pagination, ThemeProvider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './styles';
 
-const BasicPagination = ({actualPage, query, countPages = 10}) => {
+type TBasicPagination = {
+  actualPage: string | null;
+  query?: string | null;
+  countPages: number;
+}
+
+const BasicPagination = ({actualPage, query, countPages = 10}: TBasicPagination) => {
   const DEFAULT_PAGE = 1;
   let url = useLocation();
   let navigate = useNavigate();
@@ -21,13 +27,13 @@ const BasicPagination = ({actualPage, query, countPages = 10}) => {
   return (
     <ThemeProvider theme={DarkTheme}>
       <Pagination 
-        page={+actualPage || DEFAULT_PAGE}
+        page={actualPage ? +actualPage : DEFAULT_PAGE}
         count={countPages} 
         color="success"
         hideNextButton
         hidePrevButton
         sx={styles.pagination}
-        onChange={e => handlePageChange(e.target.textContent)}
+        onChange={e => handlePageChange((e.target as HTMLElement).textContent)}
       />
     </ThemeProvider>
   );

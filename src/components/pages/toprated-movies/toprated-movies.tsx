@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const TopRatedMovies = () => {
   let [searchParams] = useSearchParams();
-  const { status, movies, totalPages, genresStatus } = useTopratedMovies(searchParams.get("page"));
+  const { status, movies, totalPages, genresStatus } = useTopratedMovies(searchParams.get("page") as string);
   
   return (
     <>

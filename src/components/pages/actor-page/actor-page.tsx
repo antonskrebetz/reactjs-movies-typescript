@@ -8,11 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import './actor-page.scss';
 
+const ActorPage = (): JSX.Element => {
 
-const ActorPage = () => {
-
-  const {actorId} = useParams();
-  const {personData, personStatus, imagesStatus, moviesStatus, movies, images} = useActorPage(actorId);
+  const {actorId } = useParams();
+  const {personData, personStatus, imagesStatus, moviesStatus, movies, images} = useActorPage(actorId as string);
   const { t } = useTranslation();
 
   const actorImages = images.map(item => {

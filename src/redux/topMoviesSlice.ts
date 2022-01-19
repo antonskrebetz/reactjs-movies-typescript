@@ -8,22 +8,22 @@ type TAsyncThunk = {
   page: string;
 }
 
-export const fetchPopularMovies = createAsyncThunk(
-  'popular/fetchPopularMovies',
+export const fetchTopMovies = createAsyncThunk(
+  'top/fetchTopMovies',
   ({lang, page}: TAsyncThunk) => {
     const {request} = httpService();
-    return request(`${_apiBase}movie/popular?${_apiKey}&language=${lang}&page=${page}`);
+    return request(`${_apiBase}movie/top_rated?${_apiKey}&language=${lang}&page=${page}`);
   }
 );
 
 type TSliceState ={
-  popularMovies: Opt<TPopularMoviesItem[]>;
+  topMovies: Opt<TTopMoviesItem[]>;
   totalPages: number;
   status: Opt<string>;
   error: Opt<boolean>;
 }
 
-type TPopularMoviesItem = {
+type TTopMoviesItem = {
   poster_path: string;
   genre_ids: number[];
   id: number;
@@ -32,37 +32,37 @@ type TPopularMoviesItem = {
 }
 
 type TFulfilledAction = {
-  results: TPopularMoviesItem[];
+  results: TTopMoviesItem[];
   total_pages: number;
 }
 
 const initialState: TSliceState = {
-  popularMovies: null,
+  topMovies: null,
   totalPages: 10,
   status: null,
   error: null
 };
 
-const popularSlice = createSlice({
-  name: 'popular',
+const topSlice = createSlice({
+  name: 'top',
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchPopularMovies.pending.type]: (state) => {
+    [fetchTopMovies.pending.type]: (state) => {
       state.status = 'loading';
       state.error = null;
     },
-    [fetchPopularMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
+    [fetchTopMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
       state.status = 'resolved';
-      state.popularMovies = action.payload.results;
+      state.topMovies = action.payload.results;
       state.totalPages = action.payload.total_pages;
     },
-    [fetchPopularMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
+    [fetchTopMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
       state.status = 'rejected';
       state.error = action.payload;
     },
   }
 });
 
-const {reducer} = popularSlice;
+const {reducer} = topSlice;
 export default reducer;

@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const PopularMovies = () => {
   let [searchParams] = useSearchParams();
-  const { status, totalPages, movies, genresStatus } = usePopularMovies(searchParams.get("page")); 
+  const { status, totalPages, movies, genresStatus } = usePopularMovies(searchParams.get("page") as string); 
   return (
     <>
       <ToggleButtons />

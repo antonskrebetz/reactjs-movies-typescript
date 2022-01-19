@@ -12,13 +12,18 @@ const SearchPage = () => {
   let queryText = searchParams.get("query");
   let queryPage = searchParams.get("page");
 
-  const {status, totalPages, movies, genresStatus} = useSearchPage(queryText, queryPage);
+  const {status, totalPages, movies, genresStatus} = useSearchPage(queryText as string, queryPage as string);
   const { t } = useTranslation();
   
   return (
     <>
       <h2 className="search-results">
-        {movies.length ? `${t('searchResl')}: «${queryText}»` : `NO RESULTS FOUND: «${queryText}»`}
+        {movies ? 
+          movies.length 
+            ? `${t('searchResl')}: «${queryText}»` 
+            : `NO RESULTS FOUND: «${queryText}»`
+          : null
+        }
       </h2>
       {status === 'loading' && <Spinner/>}
       <ErrorBoundary>

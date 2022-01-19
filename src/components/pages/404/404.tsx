@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import img404 from './404.png';
 import './404.scss';
 
-const Page404 = () => {
+const Page404 = (): JSX.Element => {
   return (
     <div className="page404">
       <h1>Oh... sorry, page not found</h1>

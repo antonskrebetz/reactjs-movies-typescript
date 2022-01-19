@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 const MoviePage = () => {
 
   const {movieId} = useParams();
-  const {movieStatus, imagesStatus, castStatus, recommendStatus, movieData, isShortListCast, shortListCast, movieCast, movieImages, movieRecommend, togglelCastItems} = useMoviePage(movieId);
+  const {movieStatus, imagesStatus, castStatus, recommendStatus, movieData, isShortListCast, shortListCast, movieCast, movieImages, movieRecommend, togglelCastItems} = useMoviePage(movieId as string);
   const movieDuration = Math.floor(movieData.runtime / 60) + ':' + (movieData.runtime % 60);
   const { t } = useTranslation();
 

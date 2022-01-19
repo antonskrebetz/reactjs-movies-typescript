@@ -26,13 +26,8 @@ type TActionChangeSearchText = {
   text: string;
 }
 
-type TGenresItem = {
-  id: number;
-  name: string;
-}
-
 type TActionGenres = {
-  genres: TGenresItem[]
+  genres: TMovieGenresItem[]
 }
 
 type TSliceState ={

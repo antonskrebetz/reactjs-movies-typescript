@@ -6,15 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router';
 import styles from './styles';
 
-const ToggleButtons = () => {
+const ToggleButtons = (): JSX.Element => {
   const url = useLocation();
   const { t } = useTranslation();
   const [alignment, setAlignment] = useState(url.pathname);
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const handleChange = (event: React.MouseEvent, value: string) => {
+    setAlignment(value);
   };
-
 
   return (
     <ThemeProvider theme={DarkTheme}>

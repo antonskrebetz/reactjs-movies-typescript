@@ -1,17 +1,9 @@
+import { TMovieCastItem } from "../../redux/movieSlice";
 import ActorCard from "../actor-card/actor-card";
 import './actor-list.scss';
 
-type TDataResponse = {
-  id: number;
-  image: string;
-  profile_path: string;
-  name: string;
-  alt: string;
-  character: string;
-}
-
 type TProps = {
-  data: TDataResponse[];
+  data: TMovieCastItem[];
 }
 
 const ActorList = ({data}: TProps): JSX.Element => {
