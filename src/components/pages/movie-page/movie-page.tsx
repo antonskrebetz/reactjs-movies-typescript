@@ -9,14 +9,14 @@ import { useTranslation } from 'react-i18next';
 import './movie-page.scss';
 import { useParams } from 'react-router-dom';
 
-const MoviePage = () => {
+const MoviePage = (): JSX.Element => {
 
   const {movieId} = useParams();
   const {movieStatus, imagesStatus, castStatus, recommendStatus, movieData, isShortListCast, shortListCast, movieCast, movieImages, movieRecommend, togglelCastItems} = useMoviePage(movieId as string);
   const movieDuration = Math.floor(movieData.runtime / 60) + ':' + (movieData.runtime % 60);
   const { t } = useTranslation();
 
-  const PageContent = () => {
+  const PageContent = (): JSX.Element => {
     return (
       <>
         <div className="movie">

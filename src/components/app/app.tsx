@@ -11,7 +11,7 @@ import SearchPage from '../pages/search-page/search-page';
 import Page404 from "../pages/404/404";
 import './app.scss';
 
-const App = () => {
+const App = (): JSX.Element => {
   useApp();
   
   return (
