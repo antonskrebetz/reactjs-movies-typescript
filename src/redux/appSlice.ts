@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { httpService, _apiBase, _apiKey } from '../services/http-service';
-
-type TAsyncThunk = {
-  lang: string;
-}
+import { Opt, TAsyncThunkLang } from '../types/types';
 
 export const fetchMovieGenres = createAsyncThunk(
   'app/fetchMovieGenres',
-  ({lang}: TAsyncThunk) => {
+  ({lang}: TAsyncThunkLang) => {
     const {request} = httpService()
     return request(`${_apiBase}genre/movie/list?${_apiKey}&language=${lang}`);
   }
@@ -32,9 +29,9 @@ type TActionGenres = {
 
 type TSliceState ={
   lang: string;
-  query: string;
-  genresStatus: null | string;
-  genresError: null | boolean;
+  query: Opt<string>;
+  genresStatus: Opt<string>;
+  genresError: Opt<boolean>;
   movieGenres: TMovieGenresItem[];
 }
 

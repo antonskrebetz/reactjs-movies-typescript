@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../redux/store';
-import { fetchMovie, fetchMovieImages, fetchMovieCast, fetchMovieRecommend, toggleCastList, TMovieData, TMovieCastItem, TMovieImagesItem, TMovieRecommendItem } from '../../../redux/movieSlice';
+import { fetchMovie, fetchMovieImages, fetchMovieCast, fetchMovieRecommend, toggleCastList, TMovieData, TMovieCastItem, TMovieImagesItem } from '../../../redux/movieSlice';
 import { useLang } from '../../../services/use-lang';
+import { TMoviesItem } from '../../../types/types';
 
 export const useMoviePage = (id: string) => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ export const useMoviePage = (id: string) => {
     shortListCast: TMovieCastItem[];
     movieCast: TMovieCastItem[];
     movieImages: TMovieImagesItem[];
-    movieRecommend: TMovieRecommendItem[];
+    movieRecommend: TMoviesItem[];
     togglelCastItems: () => void;
   };
 }

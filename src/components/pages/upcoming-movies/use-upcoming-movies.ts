@@ -12,7 +12,7 @@ export const useUpcomingMovies = (page: string) => {
   }, [dispatch, lang, page]);
 
   const { status } = useAppSelector(state => state.upcomingReducer);
-  const movies = useAppSelector(state => state.upcomingReducer.upcomingMovies);
+  const movies = useAppSelector(state => state.upcomingReducer.movies);
   const totalPages = useAppSelector(state => state.upcomingReducer.totalPages);
   const genresStatus = useAppSelector(state => state.appReducer.genresStatus);
 

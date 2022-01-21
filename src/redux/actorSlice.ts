@@ -1,39 +1,29 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { httpService, _apiBase, _apiKey } from '../services/http-service';
-
-type TAsyncThunk = {
-  id: string;
-  lang: string;
-}
-
-type TAsyncThunkImages = {
-  id: string;
-}
+import { Opt, TMoviesItem, TAsyncThunkLangId, TAsyncThunkId } from '../types/types';
 
 const {request} = httpService();
 
 export const fetchPerson = createAsyncThunk(
   'actor/fetchPerson',
-  ({id, lang}: TAsyncThunk) => {
+  ({id, lang}: TAsyncThunkLangId) => {
     return request(`${_apiBase}person/${id}?${_apiKey}&language=${lang}`);
   }
 );
 
 export const fetchActorImages = createAsyncThunk(
   'actor/fetchActorImages',
-  ({id}: TAsyncThunkImages) => {
+  ({id}: TAsyncThunkId) => {
     return request(`${_apiBase}person/${id}/images?${_apiKey}`);
   }
 );
 
 export const fetchActorMovies = createAsyncThunk(
   'actor/fetchActorMovies',
-  ({id, lang}: TAsyncThunk) => {
+  ({id, lang}: TAsyncThunkLangId) => {
     return request(`${_apiBase}person/${id}/movie_credits?${_apiKey}&language=${lang}`);
   }
 );
-
-type Opt<T> = T | null;
 
 export type TFetchPerson = {
   name: string;
@@ -42,6 +32,7 @@ export type TFetchPerson = {
   biography: string;
   place_of_birth: string;
 }
+
 export type TActorImages = {
   file_path: string;
 }
@@ -50,19 +41,11 @@ type TActionActorImages = {
   profiles: TActorImages[];
 }
 
-export type TActorMovies = {
-  poster_path: string;
-  genre_ids: number[];
-  id: number;
-  title: string;
-  vote_average: number;
+type TActionActorMovies = {
+  cast: TMoviesItem[];
 }
 
-export type TActionActorMovies = {
-  cast: TActorMovies[];
-}
-
-export type TSliceState = {
+type TSliceState = {
   personStatus: Opt<string>;
   personError: Opt<boolean>,
   personData: Opt<TFetchPerson>;
@@ -71,7 +54,7 @@ export type TSliceState = {
   actorImages: Opt<TActorImages[]>,
   moviesStatus: Opt<string>;
   moviesError: Opt<boolean>;
-  actorMovies: Opt<TActorMovies[]>;
+  movies: Opt<TMoviesItem[]>;
 }
 
 const initialState: TSliceState = {
@@ -83,7 +66,7 @@ const initialState: TSliceState = {
   actorImages: null,
   moviesStatus: null,
   moviesError: null,
-  actorMovies: null,
+  movies: null,
 };
 
 const actorSlice = createSlice({
@@ -121,7 +104,7 @@ const actorSlice = createSlice({
     },
     [fetchActorMovies.fulfilled.type]: (state, action: PayloadAction<TActionActorMovies>) => {
       state.moviesStatus = 'resolved';
-      state.actorMovies = action.payload.cast;
+      state.movies = action.payload.cast;
     },
     [fetchActorMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {
       state.moviesStatus = 'rejected';

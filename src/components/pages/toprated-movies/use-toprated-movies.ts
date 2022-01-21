@@ -13,7 +13,7 @@ export const useTopratedMovies = (page: string) => {
   }, [dispatch, lang, page]);
 
   const {status} = useAppSelector(state => state.topReducer)
-  const movies = useAppSelector(state => state.topReducer.topMovies);
+  const movies = useAppSelector(state => state.topReducer.movies);
   const totalPages = useAppSelector(state => state.topReducer.totalPages);
   const genresStatus = useAppSelector(state => state.appReducer.genresStatus);
 

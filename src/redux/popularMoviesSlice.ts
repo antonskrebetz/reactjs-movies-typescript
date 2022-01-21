@@ -1,43 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { httpService, _apiBase, _apiKey } from '../services/http-service';
-
-type Opt<T> = T | null;
-
-type TAsyncThunk = {
-  lang: string;
-  page: string;
-}
+import { TMoviesSliceState, TAsyncThunkLangPage, TFulfilledMoviesAction } from '../types/types';
 
 export const fetchPopularMovies = createAsyncThunk(
   'popular/fetchPopularMovies',
-  ({lang, page}: TAsyncThunk) => {
+  ({lang, page}: TAsyncThunkLangPage) => {
     const {request} = httpService();
     return request(`${_apiBase}movie/popular?${_apiKey}&language=${lang}&page=${page}`);
   }
 );
 
-type TSliceState ={
-  popularMovies: Opt<TPopularMoviesItem[]>;
-  totalPages: number;
-  status: Opt<string>;
-  error: Opt<boolean>;
-}
-
-type TPopularMoviesItem = {
-  poster_path: string;
-  genre_ids: number[];
-  id: number;
-  title: string;
-  vote_average: number;
-}
-
-type TFulfilledAction = {
-  results: TPopularMoviesItem[];
-  total_pages: number;
-}
-
-const initialState: TSliceState = {
-  popularMovies: null,
+const initialState: TMoviesSliceState = {
+  movies: null,
   totalPages: 10,
   status: null,
   error: null
@@ -52,9 +26,9 @@ const popularSlice = createSlice({
       state.status = 'loading';
       state.error = null;
     },
-    [fetchPopularMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledAction>) => {
+    [fetchPopularMovies.fulfilled.type]: (state, action: PayloadAction<TFulfilledMoviesAction>) => {
       state.status = 'resolved';
-      state.popularMovies = action.payload.results;
+      state.movies = action.payload.results;
       state.totalPages = action.payload.total_pages;
     },
     [fetchPopularMovies.rejected.type]: (state, action: PayloadAction<boolean>) => {

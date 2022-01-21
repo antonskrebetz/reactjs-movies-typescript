@@ -13,7 +13,7 @@ export const usePopularMovies = (page: string) => {
 
   const {status} = useAppSelector(state => state.popularReducer);
   const totalPages = useAppSelector(state => state.popularReducer.totalPages);
-  const movies = useAppSelector(state => state.popularReducer.popularMovies);
+  const movies = useAppSelector(state => state.popularReducer.movies);
   const genresStatus = useAppSelector(state => state.appReducer.genresStatus);
 
   return {status, totalPages, movies, genresStatus};

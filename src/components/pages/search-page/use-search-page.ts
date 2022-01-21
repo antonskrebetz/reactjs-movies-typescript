@@ -12,7 +12,7 @@ export const useSearchPage = (query: string, page: string) => {
   }, [dispatch, query, lang, page]);
 
   const { status } = useAppSelector(state => state.searchReducer);
-  const movies = useAppSelector(state => state.searchReducer.searchMovies);
+  const movies = useAppSelector(state => state.searchReducer.movies);
   const totalPages = useAppSelector(state => state.searchReducer.totalPages);
   const genresStatus = useAppSelector(state => state.appReducer.genresStatus);
 

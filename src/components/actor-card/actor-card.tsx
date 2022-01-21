@@ -23,6 +23,7 @@ const ActorCard = ({id, image, name, character, alt}: TProps): JSX.Element => {
         <CardMedia
           component="img"
           width="150px"
+          height="225px"
           image={ image ? `${img_300}${image}` : notfound_300}
           alt={alt}
         />

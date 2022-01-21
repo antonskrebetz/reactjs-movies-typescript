@@ -1,13 +1,12 @@
 import MovieCard from '../movie-card/movie-card';
 import './movie-list.scss';
 import { useAppSelector } from '../../redux/store';
-import { TActorMovies } from '../../redux/actorSlice';
 import Spinner from '../spinner/spinner';
-
-type Opt<T> = T | null;
+import ErrorMessage from '../error-message/error-message';
+import { Opt, TMoviesItem } from '../../types/types';
 
 type TProps = {
-  data: Opt<TActorMovies[]>;
+  data: Opt<TMoviesItem[]>;
 }
 
 type TGenreItem = {
@@ -41,7 +40,7 @@ const MovieList = ({data}: TProps): JSX.Element => {
     )
   };
 
-  return <></>;
+  return <ErrorMessage/>;
 }
 
 export default MovieList;

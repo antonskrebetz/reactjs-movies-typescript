@@ -1,41 +1,33 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { httpService, _apiBase, _apiKey } from '../services/http-service';
+import { Opt, TMoviesItem, TAsyncThunkLangId, TAsyncThunkId } from '../types/types';
 
 const {request} = httpService();
 
-type TAsyncThunk = {
-  id: string;
-  lang: string;
-}
-
-type TAsyncThunkImages = {
-  id: string;
-}
-
 export const fetchMovie = createAsyncThunk(
   'movie/fetchMovie',
-  ({id, lang}: TAsyncThunk) => {
+  ({id, lang}: TAsyncThunkLangId) => {
     return request(`${_apiBase}movie/${id}?${_apiKey}&language=${lang}`);
   }
 );
 
 export const fetchMovieImages = createAsyncThunk(
   'movie/fetchMovieImages',
-  ({id}: TAsyncThunkImages) => {
+  ({id}: TAsyncThunkId) => {
     return request(`${_apiBase}movie/${id}/images?${_apiKey}`);
   }
 );
 
 export const fetchMovieCast = createAsyncThunk(
   'movie/fetchMovieCast',
-  ({id, lang}: TAsyncThunk) => {
+  ({id, lang}: TAsyncThunkLangId) => {
     return request(`${_apiBase}movie/${id}/credits?${_apiKey}&language=${lang}`);
   }
 );
 
 export const fetchMovieRecommend = createAsyncThunk(
   'movie/fetchMovieRecommend',
-  async ({id, lang}: TAsyncThunk) => {
+  async ({id, lang}: TAsyncThunkLangId) => {
     return request(`${_apiBase}movie/${id}/recommendations?${_apiKey}&language=${lang}`);
   }
 );
@@ -74,19 +66,9 @@ type TActionMovieCast = {
   cast: TMovieCastItem[];
 }
 
-export type TMovieRecommendItem = {
-  poster_path: string;
-  genre_ids: number[];
-  id: number;
-  title: string;
-  vote_average: number;
-}
-
 type TActionMovieRecommend = {
-  results: TMovieRecommendItem[];
+  results: TMoviesItem[];
 }
-
-type Opt<T> = T | null;
 
 type TSliceState = {
   movieStatus: Opt<string>;
@@ -102,7 +84,7 @@ type TSliceState = {
   shortListCast: Opt<TMovieCastItem[]>;
   recommendStatus: Opt<string>;
   recommendError: Opt<boolean>;
-  movieRecommend: Opt<TMovieRecommendItem[]>;
+  movieRecommend: Opt<TMoviesItem[]>;
 };
 
 const initialState: TSliceState = {
