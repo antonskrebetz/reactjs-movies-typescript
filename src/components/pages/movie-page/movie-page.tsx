@@ -13,10 +13,10 @@ const MoviePage = (): JSX.Element => {
 
   const {movieId} = useParams();
   const {movieStatus, imagesStatus, castStatus, recommendStatus, movieData, isShortListCast, shortListCast, movieCast, movieImages, movieRecommend, togglelCastItems} = useMoviePage(movieId as string);
-  const movieDuration = Math.floor(movieData.runtime / 60) + ':' + (movieData.runtime % 60);
   const { t } = useTranslation();
 
-  const PageContent = (): JSX.Element => {
+  if (movieStatus === 'loading') return <Spinner/>;
+  if (movieStatus === 'resolved') {
     return (
       <>
         <div className="movie">
@@ -33,7 +33,7 @@ const MoviePage = (): JSX.Element => {
             <div className="movie-blocktitle">{t('movie.revenue')}</div>
             <div className="movie-revenue">{movieData.budget}</div>
             <div className="movie-blocktitle">{t('movie.duration')}</div>
-            <div className="movie-duration">{movieDuration}</div>
+            <div className="movie-duration">{Math.floor(movieData.runtime / 60) + ':' + (movieData.runtime % 60)}</div>
             <div className="movie-genres">
               {movieData.genres.map(genre => <div key={genre.id}>{genre.name}</div>)}
             </div>
@@ -41,21 +41,23 @@ const MoviePage = (): JSX.Element => {
               <div className="movie-cast_header">
                 <div className="movie-cast_title">{t('movie.cast')}</div>
                 <Button variant="outlined" size="small" color="inherit" 
-                  onClick={togglelCastItems}>{isShortListCast ? t('movie.showAllCast') : t('movie.hideAllCast')}
+                  onClick={togglelCastItems}>
+                  {isShortListCast ? t('movie.showAllCast') : t('movie.hideAllCast')}
                 </Button>
               </div>
               <ErrorBoundary>
-                {castStatus === 'loading' && <Spinner/>}
-                <ActorList data={isShortListCast ? shortListCast : movieCast}/>
+                {castStatus === 'loading' ? <Spinner/> : <ActorList data={isShortListCast ? shortListCast : movieCast}/>}
               </ErrorBoundary>
             </div>
             <div className="movie-images">
               <div className="movie-images_title">{t('movie.images')}</div>
               <div className="movie-images_list">
-                {imagesStatus === 'loading' && <Spinner/>}
-                {
+                {imagesStatus === 'loading' ? <Spinner/> :   
                   movieImages.map((el, i) => 
-                    <img src={el.file_path ? `${img_300}${el.file_path}` : notfound_300} alt={'frame from movie'} key={i}/>
+                    <img src={el.file_path ? `${img_300}${el.file_path}` : notfound_300} 
+                      alt={'frame from movie'} 
+                      key={i}
+                    />
                   )
                 }
               </div>
@@ -65,23 +67,14 @@ const MoviePage = (): JSX.Element => {
         <div>
           <div className="movie-reccomend">{t('movie.recommend')}</div>
           <ErrorBoundary>
-            {recommendStatus === 'loading' && <Spinner/>}
-            <MovieList data={movieRecommend}/>
+            {recommendStatus === 'loading' ? <Spinner/> : <MovieList data={movieRecommend}/>}
           </ErrorBoundary>
         </div>
       </>
     )
   }
 
-  const spinner = movieStatus === 'loading' ? <Spinner/> : null;
-  const content = movieStatus === 'resolved' ? <PageContent/> : null;
-
-  return (
-    <>
-      {spinner}
-      {content}
-    </>
-  )
+  return <></>;
 }
 
 export default MoviePage;

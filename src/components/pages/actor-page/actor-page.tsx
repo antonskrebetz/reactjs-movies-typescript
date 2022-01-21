@@ -14,16 +14,8 @@ const ActorPage = (): JSX.Element => {
   const {personData, personStatus, imagesStatus, moviesStatus, movies, images} = useActorPage(actorId as string);
   const { t } = useTranslation();
 
-  const actorImages = images.map(item => {
-    return (
-      <img key={nanoid()} 
-        src={item.file_path ? `${img_300}${item.file_path}` : notfound_300} 
-        alt={'actor'}
-      />
-    )
-  });
-
-  const PageContent = () => {
+  if (personStatus === 'loading') return <Spinner/>;
+  if (personStatus === 'resolved') {
     return (
       <>
         <div className="actor">
@@ -40,31 +32,28 @@ const ActorPage = (): JSX.Element => {
             <div className="actor-biography">{personData.biography}</div>
             <div className="actor-blocktitle">{t('actor.photos')}</div>
             <div className="actor-photos">
-              {imagesStatus === 'loading' && <Spinner/>}
-              {actorImages}
+              {imagesStatus === 'loading' ? <Spinner/> :
+                images.map(el => 
+                  <img key={nanoid()} 
+                    src={el.file_path ? `${img_300}${el.file_path}` : notfound_300} 
+                    alt={'actor'}
+                  />
+                )
+              }
             </div>
           </div>
         </div>
         <div className="actor-works">
           <ErrorBoundary>
             <div className="actor-known">{t('actor.known')}</div>
-            {moviesStatus === 'loading' && <Spinner/>}
-            <MovieList data={movies.slice(0, 10)}/>
+            {moviesStatus === 'loading' ? <Spinner/> : <MovieList data={movies.slice(0, 10)}/>}
           </ErrorBoundary>
         </div>
       </>
     )
   }
 
-  const spinner = personStatus === 'loading' ? <Spinner/> : null;
-  const content = personStatus === 'resolved' ? <PageContent/> : null;
-
-  return (
-    <>
-      {spinner}
-      {content}
-    </>
-  )
+  return <></>;
 }
 
 export default ActorPage;

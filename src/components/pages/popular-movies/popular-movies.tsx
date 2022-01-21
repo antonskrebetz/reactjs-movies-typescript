@@ -6,7 +6,7 @@ import Spinner from '../../spinner/spinner';
 import { usePopularMovies } from './use-popular-movies';
 import { useSearchParams } from 'react-router-dom';
 
-const PopularMovies = () => {
+const PopularMovies = (): JSX.Element => {
   let [searchParams] = useSearchParams();
   const { status, totalPages, movies, genresStatus } = usePopularMovies(searchParams.get("page") as string); 
   return (
@@ -14,7 +14,7 @@ const PopularMovies = () => {
       <ToggleButtons />
       {status === 'loading' && <Spinner/>}
       <ErrorBoundary>
-        {genresStatus === 'loading' ? <Spinner/> : <MovieList data={movies}/>}
+        {genresStatus === 'loading' && movies ? <Spinner/> : <MovieList data={movies}/>}
       </ErrorBoundary>
       <BasicPagination actualPage={searchParams.get("page")} countPages={totalPages}/>
     </>

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import './search-page.scss';
 
-const SearchPage = () => {
+const SearchPage = (): JSX.Element => {
   let [searchParams] = useSearchParams();
   let queryText = searchParams.get("query");
   let queryPage = searchParams.get("page");
@@ -27,7 +27,7 @@ const SearchPage = () => {
       </h2>
       {status === 'loading' && <Spinner/>}
       <ErrorBoundary>
-        {genresStatus === 'loading' ? <Spinner/> : <MovieList data={movies}/>}
+        {genresStatus === 'loading' && movies ? <Spinner/> : <MovieList data={movies}/>}
       </ErrorBoundary>
       <BasicPagination actualPage={queryPage} query={queryText} countPages={totalPages}/>
     </>

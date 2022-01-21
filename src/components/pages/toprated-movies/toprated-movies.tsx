@@ -6,7 +6,7 @@ import Spinner from '../../spinner/spinner';
 import { useTopratedMovies } from './use-toprated-movies';
 import { useSearchParams } from 'react-router-dom';
 
-const TopRatedMovies = () => {
+const TopRatedMovies = (): JSX.Element => {
   let [searchParams] = useSearchParams();
   const { status, movies, totalPages, genresStatus } = useTopratedMovies(searchParams.get("page") as string);
   
@@ -15,7 +15,7 @@ const TopRatedMovies = () => {
       <ToggleButtons />
       {status === 'loading' && <Spinner/>}
       <ErrorBoundary>
-        {genresStatus === 'loading' ? <Spinner/> : <MovieList data={movies}/>}
+        {genresStatus === 'loading' && movies ? <Spinner/> : <MovieList data={movies}/>}
       </ErrorBoundary>
       <BasicPagination actualPage={searchParams.get("page")} countPages={totalPages}/>
     </>

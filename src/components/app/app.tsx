@@ -13,7 +13,7 @@ import './app.scss';
 
 const App = (): JSX.Element => {
   useApp();
-  
+
   return (
     <>
       <Router>

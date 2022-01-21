@@ -10,7 +10,7 @@ type TBasicPagination = {
   countPages: number;
 }
 
-const BasicPagination = ({actualPage, query, countPages = 10}: TBasicPagination) => {
+const BasicPagination = ({actualPage, query, countPages = 10}: TBasicPagination): JSX.Element => {
   const DEFAULT_PAGE = 1;
   let url = useLocation();
   let navigate = useNavigate();
