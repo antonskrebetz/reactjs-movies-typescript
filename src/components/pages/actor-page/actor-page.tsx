@@ -7,6 +7,7 @@ import { useActorPage } from './use-actor-page';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import './actor-page.scss';
+import ErrorMessage from '../../error-message/error-message';
 
 const ActorPage = (): JSX.Element => {
 
@@ -53,7 +54,7 @@ const ActorPage = (): JSX.Element => {
     )
   }
 
-  return <></>;
+  return <ErrorMessage/>;
 }
 
 export default ActorPage;

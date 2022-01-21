@@ -8,6 +8,7 @@ import { useMoviePage } from './use-movie-page';
 import { useTranslation } from 'react-i18next';
 import './movie-page.scss';
 import { useParams } from 'react-router-dom';
+import ErrorMessage from '../../error-message/error-message';
 
 const MoviePage = (): JSX.Element => {
 
@@ -15,7 +16,9 @@ const MoviePage = (): JSX.Element => {
   const {movieStatus, imagesStatus, castStatus, recommendStatus, movieData, isShortListCast, shortListCast, movieCast, movieImages, movieRecommend, togglelCastItems} = useMoviePage(movieId as string);
   const { t } = useTranslation();
 
-  if (movieStatus === 'loading') return <Spinner/>;
+  if (movieStatus === 'loading') {
+    return <Spinner/>;
+  } 
   if (movieStatus === 'resolved') {
     return (
       <>
@@ -74,7 +77,7 @@ const MoviePage = (): JSX.Element => {
     )
   }
 
-  return <></>;
+  return <ErrorMessage />;
 }
 
 export default MoviePage;

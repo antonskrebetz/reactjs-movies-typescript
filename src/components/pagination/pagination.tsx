@@ -29,7 +29,7 @@ const BasicPagination = ({actualPage, query, countPages = 10}: TBasicPagination)
       <Pagination 
         page={actualPage ? +actualPage : DEFAULT_PAGE}
         count={countPages} 
-        color="success"
+        color="standard"
         hideNextButton
         hidePrevButton
         sx={styles.pagination}
