@@ -29,7 +29,10 @@ const SearchPage = (): JSX.Element => {
       <ErrorBoundary>
         {genresStatus === 'loading' && movies ? <Spinner/> : <MovieList data={movies}/>}
       </ErrorBoundary>
-      <BasicPagination actualPage={queryPage} query={queryText} countPages={totalPages}/>
+      {queryText 
+        ? <BasicPagination actualPage={queryPage} query={queryText} countPages={totalPages}/> 
+        : <BasicPagination actualPage={queryPage} countPages={totalPages}/>
+      }
     </>
   )
 }

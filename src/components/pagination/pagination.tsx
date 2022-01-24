@@ -3,10 +3,11 @@ import { useCallback } from 'react';
 import { Pagination, ThemeProvider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './styles';
+import { Opt } from '../../types/types';
 
 type TBasicPagination = {
-  actualPage: string | null;
-  query?: string | null;
+  actualPage: Opt<string>;
+  query?: string;
   countPages: number;
 }
 
