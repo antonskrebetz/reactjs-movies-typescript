@@ -29,7 +29,7 @@ type TActionGenres = {
 
 type TSliceState ={
   lang: string;
-  query: Opt<string>;
+  query: string;
   genresStatus: Opt<string>;
   genresError: Opt<boolean>;
   movieGenres: TMovieGenresItem[];

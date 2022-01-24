@@ -6,7 +6,7 @@ import styles from './styles';
 import { Opt } from '../../types/types';
 
 type TBasicPagination = {
-  actualPage: Opt<string>;
+  actualPage?: Opt<string>;
   query?: string;
   countPages: number;
 }
